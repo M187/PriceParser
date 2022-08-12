@@ -56,6 +56,7 @@ public class ExcelWriter {
 					}
 				}
 				for (int n = 0; n < resultData.getCompanyName().size(); n++) sheet.autoSizeColumn(n);
+				rownum++;
 			}
 			workbook.write(fileOutputStream);
 			workbook.close();
