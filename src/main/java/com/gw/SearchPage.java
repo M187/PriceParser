@@ -1,8 +1,10 @@
 package com.gw;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
+import java.time.Duration;
 import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -23,7 +25,7 @@ public class SearchPage {
 		for (int i = 1; i < inputData.getTravelersAge().size() + 1; i++){
 			String age = inputData.getTravelersAge().get(i-1);
 			$("#traveller_" + i).setValue(age);
-			$("#traveller_" + (i+1)).click();
+			$("#traveller_" + (i+1)).should(Condition.visible, Duration.ofSeconds(5)).click();
 		}
 
 		Calendar calndr2 = Calendar.getInstance();
