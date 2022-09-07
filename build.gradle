@@ -28,5 +28,3 @@ dependencies {
     implementation 'com.codeborne:selenide:6.6.6'
     implementation 'org.apache.poi:poi:3.11'
 }
-
-java.sourceCompatibility = JavaVersion.VERSION_11

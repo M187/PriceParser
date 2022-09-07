@@ -40,7 +40,7 @@ public class ResultPage {
 		List resultPrices = new ArrayList();
 		for (SelenideElement td : tdNodes) {
 			String priceText = td.$x(".//div/span/span[2]").getText();
-			resultPrices.add(priceText.split(" ")[0]);
+			resultPrices.add(priceText.split(" K")[0]);
 		}
 		return resultPrices;
 	}
