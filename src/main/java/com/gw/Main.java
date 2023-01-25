@@ -18,13 +18,15 @@ public class Main {
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();
-        inputDatas.add(new InputData("Chorvatsko", 7, Arrays.asList("42", "36", "17","15")));
-        inputDatas.add(new InputData("Řecko", 14, Arrays.asList("42", "36", "15")));
-        inputDatas.add(new InputData("Itálie", 14, Arrays.asList("33")));
-        inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36")));
+        inputDatas.add(new InputData("Chorvatsko", 7, Arrays.asList("42", "36", "17","15"), false));
+        inputDatas.add(new InputData("Řecko", 14, Arrays.asList("42", "36", "15"), false));
+        inputDatas.add(new InputData("Itálie", 14, Arrays.asList("33"), false));
+        inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36"), false));
+        inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36","7","5"), true));
+        inputDatas.add(new InputData("Itálie", 3, Arrays.asList("33"), true));
 
 
-        Configuration.browser = "firefox";
+        Configuration.browser = "edge";
 
         for (InputData iD : inputDatas) {
             System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
@@ -32,6 +34,7 @@ public class Main {
 
             new CookieHandler().acceptCookies();
             new SearchPage().basicSearch(iD);
+            if (iD.isAddWinterSports()) new ResultPage().addWinterSports();
             outputDatas.add(
                     new ResultPage().parseData());
 

@@ -14,7 +14,7 @@ public class SearchPage {
 	private SelenideElement
 			destinaiton = $("#formparam_destination_input"),
 			travelerAge = $("#traveller_"),
-			nextButton = $x(".//button[contains(text(), 'Pokračovat')]"),
+			nextButton = $x(".//button[contains(text(), 'Spočítat ceny')]"),
 			dayOfReturn = $("#field_date_return_day"),
 			monthOfReturn = $("#field_date_return_month"),
 			yearOfReturn = $("#field_date_return_year");
@@ -35,7 +35,8 @@ public class SearchPage {
 		monthOfReturn.setValue(String.valueOf(calndr2.get(Calendar.MONTH) + 1));
 		yearOfReturn.setValue(String.valueOf(calndr2.get(Calendar.YEAR)));
 
-		a.get(22).click();
+//		a.get(a.size() - 2).click();
+		nextButton.click();
 		System.out.println(" ---- ");
 	}
 }

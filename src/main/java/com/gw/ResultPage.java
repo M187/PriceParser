@@ -8,11 +8,13 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 
 public class ResultPage {
 
 	private SelenideElement insuranceTable = $x(".//table[contains(@class, 'results-table')]");
+	private SelenideElement winterSportsSlider = $x(".//div[@id='slider[data_sport][winter]']");
 
 	public ResultData parseData() {
 		insuranceTable.should(Condition.visible, Duration.ofSeconds(60));
@@ -51,5 +53,11 @@ public class ResultPage {
 			resultList.add(td.$x(".//span").getText());
 		}
 		return resultList;
+	}
+
+	public void addWinterSports() {
+		$x(".//div[@id='slider[data_sport][winter]']").click();
+		$("#recalculate_button").should(Condition.visible, Duration.ofSeconds(10)).click();
+		$x(".//input[@type='submit']").should(Condition.enabled, Duration.ofSeconds(25));
 	}
 }

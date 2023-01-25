@@ -13,14 +13,16 @@ public class InputData {
 	private String destination;
 	private int durationInDyas;
 	private List<String> travelersAge;
+	private boolean addWinterSports;
 
 
 	public String string(){
-		return new StringBuilder()
+		 StringBuilder sB = new StringBuilder()
 			.append("Destination: " + destination)
 			.append(" -- Duration in days: " + durationInDyas)
 			.append(" -- Travelers no.: " + travelersAge.size())
-			.append(" -- travelers age:" + travelersAge.stream().collect(Collectors.joining(",", "{ ", " }")))
-			.toString();
+			.append(" -- travelers age:" + travelersAge.stream().collect(Collectors.joining(",", "{ ", " }")));
+		 if (addWinterSports) sB.append(" -- Winter Sports package");
+		return sB.toString();
 	}
 }
