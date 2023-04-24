@@ -1,6 +1,7 @@
 package com.gw;
 
 import com.codeborne.selenide.Configuration;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class Main {
 
 
         Configuration.browser = "edge";
+        EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
+        Configuration.browserCapabilities = options;
 
         for (InputData iD : inputDatas) {
             System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
