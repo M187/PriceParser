@@ -16,9 +16,10 @@ public class ResultPage {
 	private SelenideElement insuranceTable = $x(".//table[contains(@class, 'results-table')]");
 	private SelenideElement winterSportsSlider = $x(".//div[@id='slider[data_sport][winter]']");
 
-	public ResultData parseData() {
+	public ResultData parseData() throws InterruptedException {
 		insuranceTable.should(Condition.visible, Duration.ofSeconds(60));
 		ElementsCollection insuranceCompanyNamesAndPrices = insuranceTable.$$x("./thead/tr[1]/td");
+		Thread.sleep(3000);
 		ResultData result = new ResultData();
 		result.getCompanyName().addAll(parseCompanyName(insuranceCompanyNamesAndPrices));
 		result.getInsurancePrice().addAll(parsePrices(insuranceCompanyNamesAndPrices));
