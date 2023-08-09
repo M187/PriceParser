@@ -36,7 +36,7 @@ public class SearchPage {
 		yearOfReturn.setValue(String.valueOf(calndr2.get(Calendar.YEAR)));
 
 //		a.get(a.size() - 2).click();
-		nextButton.click();
+		nextButton.scrollIntoView(false).should(Condition.enabled).click();
 		System.out.println(" ---- ");
 	}
 }
