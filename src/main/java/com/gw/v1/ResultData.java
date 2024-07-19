@@ -1,4 +1,4 @@
-package com.gw;
+package com.gw.v1;
 
 import lombok.Getter;
 import lombok.Setter;

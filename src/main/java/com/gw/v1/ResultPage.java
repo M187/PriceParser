@@ -1,4 +1,4 @@
-package com.gw;
+package com.gw.v1;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
