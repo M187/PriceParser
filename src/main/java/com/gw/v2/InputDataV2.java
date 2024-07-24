@@ -11,9 +11,11 @@ public class InputDataV2 {
 
     public String continent,
             destinationCountry,
-            tripPurpose,
-            tripDuration,
-            noOfTravelers;
+            tripPurpose;
+
+    public int tripDuration;
+
+    public String  noOfTravelers;
 
     public boolean allTravelersFromPoland;
 

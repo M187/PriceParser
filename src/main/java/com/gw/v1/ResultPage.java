@@ -8,25 +8,18 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class ResultPage {
-
+    private SelenideElement loadingDialog = $x("//div[@class='rank-modal-dialog']");
     private SelenideElement insuranceTable = $x(".//table[contains(@class, 'results-table')]");
     private SelenideElement winterSportsSlider = $x(".//div[@id='slider[data_sport][winter]']");
     private SelenideElement nextButton = $x(".//button[contains(text(), 'Spočítat ceny')]");
 
-    public ResultData parseData() throws InterruptedException {
-        Thread.sleep(2000);
+    public ResultData parseData() throws InterruptedException {Thread.sleep(2000);
         long startTime = System.currentTimeMillis();
         resultTableWaitToBeLoaded();
-        if (!insuranceTable.exists()) {
-            if (nextButton.exists()) {
-                nextButton.scrollIntoView(false).should(Condition.enabled).click();
-                resultTableWaitToBeLoaded();
-            }
-        }
         ElementsCollection insuranceCompanyNamesAndPrices = insuranceTable.$$x("./thead/tr[1]/td");
         ResultData result = new ResultData();
         result.getCompanyName().addAll(parseCompanyName(insuranceCompanyNamesAndPrices));
@@ -37,14 +30,11 @@ public class ResultPage {
         return result;
     }
 
-    private void resultTableWaitToBeLoaded() throws InterruptedException {
-        long startTime = System.currentTimeMillis();
-        while (startTime + 60000 > System.currentTimeMillis()) {
-            if (insuranceTable.exists()) {
-                break;
-            }
-            Thread.sleep(2000);
+    private void resultTableWaitToBeLoaded() {
+        while (!executeJavaScript("return document.readyState").equals("complete")) {
+            sleep(100);
         }
+        loadingDialog.shouldNot(Condition.exist, Duration.ofSeconds(40));
     }
 
     private List<String> parseCompanyName(ElementsCollection tdNodes) {
