@@ -52,7 +52,8 @@ public class Main {
 
         Configuration.browser = "edge";
         Configuration.browserCapabilities = options;
-        //Configuration.headless = true;
+        Configuration.browserSize = "1920x1080";
+        Configuration.headless = true;
 
         int counter = 1;
         for (InputDataV2 data : inputData) {
@@ -69,6 +70,7 @@ public class Main {
                     new ResultPage().parseData());
 
             closeWebDriver();
+            Thread.sleep(10000);
         }
         new ExcelWriter().writeToExcelV2(inputData, outputDatas);
     }
