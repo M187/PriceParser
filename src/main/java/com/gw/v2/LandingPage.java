@@ -7,9 +7,7 @@ import com.codeborne.selenide.SelenideElement;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.TextStyle;
 import java.util.Calendar;
-import java.util.Locale;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -46,7 +44,7 @@ public class LandingPage {
         String tripEndDate = getTripEndDate(data.tripDuration);
 
         waitUntilBrowserFullyLoads();
-        continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
+        setContinent();
         setCountry();
         setTripPurpose();
         setTripDate(currentDay, tripEndDate);
@@ -65,6 +63,10 @@ public class LandingPage {
 
     private void setTripPurpose() {
         tripPurpose.click();
+    }
+
+    private void setContinent() {
+        continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
     }
 
     private void setCountry() {
@@ -122,12 +124,12 @@ public class LandingPage {
 
     private String getTripEndDate(int tripLength) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.now().plusDays(tripLength).format(formatter);
+        return LocalDate.now().plusDays(tripLength + 1).format(formatter);
     }
 
     private String getCurrentDay() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        return LocalDate.now().format(formatter);
+        return LocalDate.now().plusDays(1).format(formatter);
     }
 
     private String getContinent(InputDataV2 data){

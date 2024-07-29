@@ -11,14 +11,14 @@ import java.util.List;
 public class ResultData {
 
 	private List<String> companyName = new ArrayList<>();
-	private List<String> insurancePrice = new ArrayList<>();
-	private List<String> liecebneVylohy = new ArrayList<>();
-	private List<String> urazovePojisteni = new ArrayList<>();
-	private List<String> pojistOdpovednosti = new ArrayList<>();
+	private List<String> insurancePremium = new ArrayList<>();
+	private List<String> medexSumInsured = new ArrayList<>();
+	private List<String> oc = new ArrayList<>();
+	private List<String> rate = new ArrayList<>();
 
 	public ResultData(){
-		this.companyName.add("Poistovna");
-		this.insurancePrice.add("Cena poistenia");
+//		this.companyName.add("Poistovna");
+//		this.insurancePremium.add("Cena poistenia");
 //		this.liecebneVylohy.add("Liecebne bylohy");
 //		this.urazovePojisteni.add("Urazove poistenie");
 //		this.pojistOdpovednosti.add("Pojisteni Odpovednosti");

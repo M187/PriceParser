@@ -7,6 +7,7 @@ import com.gw.v1.ResultPage;
 import com.gw.v1.SearchPage;
 import com.gw.v2.InputDataV2;
 import com.gw.v2.LandingPage;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -24,42 +25,52 @@ public class Main {
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
-        List<InputDataV2> inputDatas = new ArrayList<>();
-        inputDatas.add(new InputDataV2("Europa","Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
-        inputDatas.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"1.1.1990", "1.1.1990"}));
-        inputDatas.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 8, "3", true, new String[]{"12.6.1985", "13.8.1991", "12.5.2020"}));
-        inputDatas.add(new InputDataV2("Azja","Turcja", "Wypoczynek, zwiedzanie", 8, "4", true, new String[]{"18.9.1984", "25.11.1992", "12.11.2019", "5.6.2015"}));
-        inputDatas.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 14, "3", true, new String[]{"12.6.1985", "13.8.1991", "12.5.2020"}));
-        inputDatas.add(new InputDataV2("Azja","Turcja", "Wypoczynek, zwiedzanie", 14, "4", true, new String[]{"18.9.1984", "25.11.1992", "12.11.2019", "5.6.2015"}));
-        inputDatas.add(new InputDataV2("Ameryka Południowa","Brazylia", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"10.2.1985", "13.3.1990"}));
-        inputDatas.add(new InputDataV2("Ameryka Północna","Stany Zjednoczone", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"30.10.1986", "12.12.1987"}));
-        inputDatas.add(new InputDataV2("Europa","Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"1.1.1990", "1.2.1987"}));
-        inputDatas.add(new InputDataV2("Europa","Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"1.1.1990", "1.2.1987"}));
-        inputDatas.add(new InputDataV2("Europa","Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"5.4.1982", "5.4.1982"}));
-        inputDatas.add(new InputDataV2("Europa","Włochy", "Narty, snowboard", 8, "2", true, new String[]{"10.2.1985", "13.3.1990"}));
-        inputDatas.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12.12.1954", "13.11.1955"}));
-        inputDatas.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10.10.1995", "12.5.1987", "25.12.1990", "30.9.1994", "18.7.1978", "14.5.1998"}));
-        inputDatas.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 8, "12", true, new String[]{"10.10.1995", "12.5.1987", "25.12.1990", "30.9.1994", "18.7.1978", "14.5.1998", "10.10.1995", "12.5.1987", "25.12.1990", "30.9.1994", "18.7.1978", "14.5.1998"}));
+        List<InputDataV2> inputData = new ArrayList<>();
+        inputData.add(new InputDataV2("Europa","Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
+        inputData.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
+        inputData.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 8, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
+        inputData.add(new InputDataV2("Azja","Turcja", "Wypoczynek, zwiedzanie", 8, "4", true, new String[]{"18-09-1984", "25-11-1992", "12-11-2019", "05-06-2015"}));
+        inputData.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 14, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
+        inputData.add(new InputDataV2("Azja","Turcja", "Wypoczynek, zwiedzanie", 14, "4", true, new String[]{"18-09-1984", "25-11-1992", "12-11-2019", "05-06-2015"}));
+        inputData.add(new InputDataV2("Ameryka Południowa","Brazylia", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+        inputData.add(new InputDataV2("Ameryka Północna","Stany Zjednoczone", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"30-10-1986", "12-12-1987"}));
+        inputData.add(new InputDataV2("Europa","Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
+        inputData.add(new InputDataV2("Europa","Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
+        inputData.add(new InputDataV2("Europa","Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"05-04-1982", "05-04-1982"}));
+        inputData.add(new InputDataV2("Europa","Włochy", "Narty, snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+        inputData.add(new InputDataV2("Afryka","Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12-12-1954", "13-11-1955"}));
+        inputData.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
+        inputData.add(new InputDataV2("Europa","Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
 
+
+        WebDriverManager.edgedriver().setup();
+        EdgeOptions options = new EdgeOptions();
+                options.addArguments("--remote-allow-origins=*");
+                //options.addArguments("--headless");
+                //options.addArguments("--disable-gpu");
+                //options.addArguments("--incognito");
 
         Configuration.browser = "edge";
-        EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
         Configuration.browserCapabilities = options;
+        //Configuration.headless = true;
 
-        for (InputDataV2 inputData : inputDatas) {
-//            System.out.println(" >>> Starting iteration for input data >>> " + inputData.string());
+        int counter = 1;
+        for (InputDataV2 data : inputData) {
+            System.out.println("Round: " + counter);
+            counter++;
+            System.out.println("Headless method: " + Configuration.headless);
+            System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
             open("https://rankomat.pl/kalkulator/ubezpieczenia-turystyczne");
 
             new CookieHandler().acceptCookies();
-            new LandingPage(inputData).populateOfferFormWithData(inputData);
+            new LandingPage(data).populateOfferFormWithData(data);
 
             outputDatas.add(
                     new ResultPage().parseData());
 
-            Thread.sleep(30000);
             closeWebDriver();
         }
-        new ExcelWriter().writeToExcelV2(inputDatas, outputDatas);
+        new ExcelWriter().writeToExcelV2(inputData, outputDatas);
     }
 
     public static void mainV1(String[] args) throws Exception {
@@ -76,9 +87,9 @@ public class Main {
         inputDatas.add(new InputData("Itálie", 3, Arrays.asList("33"), true));
 
 
-        Configuration.browser = "edge";
-        EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
-        Configuration.browserCapabilities = options;
+//        Configuration.browser = "edge";
+//        EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
+//        Configuration.browserCapabilities = options;
 
         for (InputData iD : inputDatas) {
             System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
