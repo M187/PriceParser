@@ -12,6 +12,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.sleep;
 
 public class ResultPage {
+    private SelenideElement spinner = $x(".//div[contains(@class,'rank-spinner')]");
     private SelenideElement loadingDialog = $x("//div[@class='rank-modal-dialog']");
     private SelenideElement insuranceList = $x("//offers-list");
     private ElementsCollection insuranceCompanyNames = insuranceList.$$x(".//div[contains(@class, 'logo__image')]");
@@ -33,12 +34,13 @@ public class ResultPage {
 
 
     private void resultTableWaitToBeLoaded() throws InterruptedException {
-        Thread.sleep(2000);
         while (!executeJavaScript("return document.readyState").equals("complete")) {
             sleep(100);
         }
-        loadingDialog.shouldNot(Condition.exist, Duration.ofSeconds(100));
-        insuranceCompanyNames.get(0).shouldBe(Condition.visible);
+        spinner.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
+        loadingDialog.shouldNotBe(Condition.visible, Duration.ofSeconds(100));
+        Thread.sleep(2000);
+        insuranceCompanyNames.get(0).shouldBe(Condition.visible,  Duration.ofSeconds(60));
 
     }
 
