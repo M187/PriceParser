@@ -9,6 +9,7 @@ import java.util.*;
 import com.gw.v1.InputData;
 import com.gw.v1.ResultData;
 import com.gw.v2.InputDataV2;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -19,9 +20,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
+@Slf4j
 public class ExcelWriter {
 
 	public void writeToExcelV2(List<InputDataV2> inputData, List<ResultData> resultData) {
+		log.info(" -- writing data into excel");
 		try {
 			File myObj = new File("policiesPriceComparison.xls");
 			FileOutputStream fileOutputStream = null;
@@ -111,6 +114,7 @@ public class ExcelWriter {
 		} catch (IOException ie) {
 			ie.printStackTrace();
 		}
+		log.info(" -- finished writing data into excel");
     }
 
 	private void setBoldIfColonnade(Cell cell, String companyName, HSSFCellStyle greenStyle) {

@@ -12,7 +12,7 @@ import java.util.Calendar;
 import static com.codeborne.selenide.Selenide.*;
 
 public class LandingPage {
-    private final InputDataV2 data;
+
     private Calendar calndr = Calendar.getInstance();
 
     private SelenideElement
@@ -33,40 +33,29 @@ public class LandingPage {
             travelersBirthdate = $$x("//section[contains(@id, 'traveler')]//rank-date-picker");
 
     public LandingPage(InputDataV2 data) {
-        this.data = data;
-        this.continent = $x("//div[text()='"+ getContinent(data)+"']/ancestor::rank-pic");
-        this.countryOption = $x("//div[text()='"+ getCountry(data)+"']");
-        this.tripPurpose = $x("//div[text()='"+ getTripPurpose(data)+"']/ancestor::rank-pic");
+        this.continent = $x("//div[text()='"+ data.continent +"']/ancestor::rank-pic");
+        this.countryOption = $x("//div[text()='"+ data.destinationCountry +"']");
+        this.tripPurpose = $x("//div[text()='"+ data.tripPurpose +"']/ancestor::rank-pic");
     }
 
     public void populateOfferFormWithData(InputDataV2 data) throws Exception {
         String currentDay = getCurrentDay();
         String tripEndDate = getTripEndDate(data.tripDuration);
 
-        waitUntilBrowserFullyLoads();
-        setContinent();
+//        waitUntilBrowserFullyLoads();
+        continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
         setCountry();
-        setTripPurpose();
+        tripPurpose.click();
         setTripDate(currentDay, tripEndDate);
         setNumOfTravelers(data.noOfTravelers);
-        setIfTravelersFromPoland(data.allTravelersFromPoland);
+        if(data.allTravelersFromPoland) {
+            btnsTravelersLivingInResidence.get(0).click();
+        } else {
+            btnsTravelersLivingInResidence.get(1).scrollIntoView(true).click();
+        }
         setBirthDayOfTravelers(data.datesOfBirth);
         acceptTermsOfUse();
-        startQuote();
-    }
-
-    private void waitUntilBrowserFullyLoads() {
-        while (!executeJavaScript("return document.readyState").equals("complete")) {
-            sleep(100);
-        }
-    }
-
-    private void setTripPurpose() {
-        tripPurpose.click();
-    }
-
-    private void setContinent() {
-        continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
+        btnShowMoreOffers.scrollIntoView(true).click();
     }
 
     private void setCountry() {
@@ -75,11 +64,6 @@ public class LandingPage {
         countryOption.click();
         pageHeader.click();
 
-    }
-
-    private void startQuote() {
-        btnShowMoreOffers.scrollIntoView(true).click();
-        System.out.println("Success");
     }
 
     private void acceptTermsOfUse() {
@@ -97,14 +81,6 @@ public class LandingPage {
             }
         } else {
             throw new Exception("Not enough birthday input for all travelers");
-        }
-    }
-
-    private void setIfTravelersFromPoland(boolean isFromPoland) {
-        if(isFromPoland) {
-            btnsTravelersLivingInResidence.get(0).click();
-        } else {
-            btnsTravelersLivingInResidence.get(1).scrollIntoView(true).click();
         }
     }
 
@@ -130,17 +106,5 @@ public class LandingPage {
     private String getCurrentDay() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         return LocalDate.now().plusDays(1).format(formatter);
-    }
-
-    private String getContinent(InputDataV2 data){
-        return data.continent;
-    }
-
-    private String getCountry(InputDataV2 data){
-        return data.destinationCountry;
-    }
-
-    private String getTripPurpose(InputDataV2 data){
-        return data.tripPurpose;
     }
 }

@@ -23,6 +23,7 @@ public class ResultPage {
         ElementsCollection medexSumInsured = insuranceList.$$x(".//div[contains(@class, 'offer-bar__details--params')]/div[1]");
         ElementsCollection oc = insuranceList.$$x(".//div[contains(@class, 'offer-bar__details--params')]/div[2]");
         ElementsCollection ratings = insuranceList.$$x(".//div[@class='offer-bar__rating']//offer-rating/div/div[3]");
+
         ResultData result = new ResultData();
         result.getCompanyName().addAll(parseCompanyName(insuranceCompanyNames));
         result.getInsurancePremium().addAll(parsePremiums(premium));
@@ -37,11 +38,9 @@ public class ResultPage {
         while (!executeJavaScript("return document.readyState").equals("complete")) {
             sleep(100);
         }
-        spinner.shouldNotBe(Condition.visible, Duration.ofSeconds(10));
         loadingDialog.shouldNotBe(Condition.visible, Duration.ofSeconds(100));
-        Thread.sleep(2000);
+        spinner.shouldNotBe(Condition.visible, Duration.ofSeconds(100));
         insuranceCompanyNames.get(0).shouldBe(Condition.visible,  Duration.ofSeconds(60));
-
     }
 
     private List<String> parseCompanyName(ElementsCollection elements) {

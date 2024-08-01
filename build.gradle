@@ -32,4 +32,5 @@ dependencies {
 
     implementation 'com.codeborne:selenide:6.6.6'
     implementation 'org.apache.poi:poi:3.11'
+    implementation 'org.jprocesses:jProcesses:1.6.4'
 }
