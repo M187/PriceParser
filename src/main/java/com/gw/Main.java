@@ -1,7 +1,6 @@
 package com.gw;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
 import com.gw.v1.InputData;
 import com.gw.v1.ResultData;
 import com.gw.v1.ResultPage;
@@ -24,7 +23,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -46,17 +45,13 @@ public class Main {
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
 
-//        WebDriverManager.edgedriver().setup();
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--remote-allow-origins=*");
-        //options.addArguments("--headless");
-        //options.addArguments("--disable-gpu");
-        //options.addArguments("--incognito");
 
         Configuration.browser = "edge";
         Configuration.browserCapabilities = options;
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        Configuration.headless = true;
 
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
