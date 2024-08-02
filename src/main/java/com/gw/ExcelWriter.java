@@ -79,29 +79,29 @@ public class ExcelWriter {
 				for (int k = 0; k < data.getCompanyName().size(); k++) {
 					Row row = sheet.createRow(rowNum++);
 					String companyName = data.getCompanyName().get(k);
-					String premium = data.getInsurancePremium().get(k);
-					String medexSumInsured = data.getMedexSumInsured().get(k);
-					String oc = data.getOc().get(k);
-					String rate = data.getRate().get(k);
 
 					Cell cell1 = row.createCell(0);
 						cell1.setCellValue(companyName);
 						setBoldIfColonnade(cell1, companyName, greenCellStyle);
 
 					Cell cell2 = row.createCell(1);
-						cell2.setCellValue(premium);
+						cell2.setCellValue(
+								k < data.getInsurancePremium().size() ? data.getInsurancePremium().get(k) : "missing on page");
 						setBoldIfColonnade(cell2, companyName, greenCellStyle);
 
 					Cell cell3 = row.createCell(2);
-						cell3.setCellValue(medexSumInsured);
+						cell3.setCellValue(
+								k < data.getMedexSumInsured().size() ? data.getMedexSumInsured().get(k) : "missing on page");
 						setBoldIfColonnade(cell3, companyName, greenCellStyle);
 
 					Cell cell4 = row.createCell(3);
-						cell4.setCellValue(oc);
+						cell4.setCellValue(
+								k < data.getOc().size() ? data.getOc().get(k) : "missing on page");
 						setBoldIfColonnade(cell4, companyName, greenCellStyle);
 
 					Cell cell5 = row.createCell(4);
-						cell5.setCellValue(rate);
+						cell5.setCellValue(
+								k < data.getRate().size() ? data.getRate().get(k) : "missing on page");
 						setBoldIfColonnade(cell5, companyName, greenCellStyle);
 
 				}
