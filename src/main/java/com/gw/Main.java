@@ -28,8 +28,6 @@ public class Main {
 
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
-        List<String> processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
-
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
@@ -63,10 +61,14 @@ public class Main {
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
 
+        List<String> processesPidList = null;
+        if (!Configuration.headless)
+            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
+
         try {
             int counter = 1;
             for (InputDataV2 data : inputData) {
-                System.out.println("Round: " + counter);
+                System.out.println(" -- Round: " + counter);
                 counter++;
 
                 open("https://rankomat.pl/kalkulator/ubezpieczenia-turystyczne");
@@ -86,6 +88,7 @@ public class Main {
             }
             new ExcelWriter().writeToExcelV2(inputData, outputDatas);
         } catch(Exception e){
+            if (!Configuration.headless)
             for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
                 if (!processesPidList.contains(pI)) {
                     JProcesses.killProcess(Integer.parseInt(pI));
