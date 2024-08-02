@@ -9,7 +9,7 @@ import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class SearchPage {
+public class LandingPage {
 
 	private SelenideElement
 			destinaiton = $("#formparam_destination_input"),

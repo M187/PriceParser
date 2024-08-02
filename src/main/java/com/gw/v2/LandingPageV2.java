@@ -11,7 +11,7 @@ import java.util.Calendar;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class LandingPage {
+public class LandingPageV2 {
 
     private Calendar calndr = Calendar.getInstance();
 
@@ -32,7 +32,7 @@ public class LandingPage {
             btnsTravelersLivingInResidence = $$x("//div[@id='travelersLivingInResidence']//input/parent::div"),
             travelersBirthdate = $$x("//section[contains(@id, 'traveler')]//rank-date-picker");
 
-    public LandingPage(InputDataV2 data) {
+    public LandingPageV2(InputDataV2 data) {
         this.continent = $x("//div[text()='"+ data.continent +"']/ancestor::rank-pic");
         this.countryOption = $x("//div[text()='"+ data.destinationCountry +"']");
         this.tripPurpose = $x("//div[text()='"+ data.tripPurpose +"']/ancestor::rank-pic");

@@ -9,6 +9,7 @@ import java.util.*;
 import com.gw.v1.InputData;
 import com.gw.v1.ResultData;
 import com.gw.v2.InputDataV2;
+import com.gw.v2.ResultDataV2;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -17,13 +18,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 @Slf4j
 public class ExcelWriter {
 
-	public void writeToExcelV2(List<InputDataV2> inputData, List<ResultData> resultData) {
+	public void writeToExcelV2(List<InputDataV2> inputData, List<ResultDataV2> resultData) {
 		log.info(" -- writing data into excel");
 		try {
 			File myObj = new File("policiesPriceComparison.xls");
@@ -56,7 +56,7 @@ public class ExcelWriter {
 			String[] columns = {"Ubezpieczyciel", "Cena polisy", "Koszty leczenia", "OC", "Ocena experta"};
 			int rowNum = 0;
 			for (int i = 0; i < inputData.size(); i++) {
-				ResultData data = resultData.get(i);
+				ResultDataV2 data = resultData.get(i);
 				InputDataV2 input = inputData.get(i);
 				//Merge cells in first row (from first cell to 20th column)
 				sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 20));
@@ -121,9 +121,7 @@ public class ExcelWriter {
 		if(companyName.equals("colonnade")) {
 			cell.setCellStyle(greenStyle);
 		}
-
 	}
-
 
 	public void writeToExcelV1(List<InputData> inputDatas, List<ResultData> resultDatas) {
 		try {
