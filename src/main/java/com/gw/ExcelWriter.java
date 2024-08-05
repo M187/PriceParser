@@ -146,10 +146,10 @@ public class ExcelWriter {
 
 				Object[][] arrayOfEntries = {
 						resultData.getCompanyName().toArray(),
-						resultData.getInsurancePremium().toArray(),
-						resultData.getMedexSumInsured().toArray(),
-						resultData.getOc().toArray(),
-						resultData.getRate().toArray()
+						resultData.getInsurancePrice().toArray(),
+						resultData.getLiecebneVylohy().toArray(),
+						resultData.getUrazovePojisteni().toArray(),
+						resultData.getPojistOdpovednosti().toArray()
 				};
 
 				for (Object[] entry : arrayOfEntries) {

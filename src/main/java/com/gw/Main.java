@@ -25,7 +25,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void mainV2(String[] args) throws Exception {
 
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -95,35 +95,59 @@ public class Main {
         }
     }
 
-    public static void mainV1(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();
-        inputDatas.add(new InputData("Chorvatsko", 7, Arrays.asList("42", "36", "17", "15"), false));
+        inputDatas.add(new InputData("Chorvatsko", 7, Arrays.asList("42", "36", "17","15"), false));
         inputDatas.add(new InputData("Řecko", 14, Arrays.asList("42", "36", "15"), false));
         inputDatas.add(new InputData("Itálie", 14, Arrays.asList("33"), false));
         inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36"), false));
-        inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36", "7", "5"), true));
+        inputDatas.add(new InputData("Rakousko", 6, Arrays.asList("42", "36","7","5"), true));
         inputDatas.add(new InputData("Itálie", 3, Arrays.asList("33"), true));
 
+
         Configuration.browser = "edge";
+        Configuration.headless = false;
+        Configuration.browserSize = "1920x1920";
         EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
         Configuration.browserCapabilities = options;
 
+        List<String> processesPidList = null;
+        if (!Configuration.headless)
+            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
+
         for (InputData iD : inputDatas) {
-            System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
-            open("https://rankomat.pl/kalkulator/ubezpieczenia-turystyczne/?calculationId=TLXDRM#/s/first");
+            try {
+                System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
+                open("https://www.top-pojisteni.cz/cestovni-pojisteni/kalkulace-a-srovnani");
 
-            new CookieHandler().acceptCookies();
-            new LandingPage().basicSearch(iD);
-            if (iD.isAddWinterSports()) new ResultPage().addWinterSports();
-            outputDatas.add(
-                    new ResultPage().parseData());
+                new CookieHandler().acceptCookies();
+                new LandingPage().basicSearch(iD);
+                if (iD.isAddWinterSports()) new ResultPage().addWinterSports();
+                outputDatas.add(
+                        new ResultPage().parseData());
 
-            Thread.sleep(30000);
-            closeWebDriver();
+//                Thread.sleep(10000);
+                closeWebDriver();
+                if (!Configuration.headless)
+                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+                        if (!processesPidList.contains(pI)) {
+                            JProcesses.killProcess(Integer.parseInt(pI));
+                        }
+                    }
+            }catch (Exception e){
+                closeWebDriver();
+                if (!Configuration.headless)
+                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+                        if (!processesPidList.contains(pI)) {
+                            JProcesses.killProcess(Integer.parseInt(pI));
+                        }
+                    }
+                throw e;
+            }
         }
         new ExcelWriter().writeToExcelV1(inputDatas, outputDatas);
     }
