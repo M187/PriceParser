@@ -28,21 +28,29 @@ public class Main {
 
 
         Configuration.browser = "edge";
+        Configuration.headless = true;
+        Configuration.browserSize = "1920x1920";
         EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
         Configuration.browserCapabilities = options;
 
+
         for (InputData iD : inputDatas) {
-            System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
-            open("https://www.top-pojisteni.cz/cestovni-pojisteni/kalkulace-a-srovnani");
+            try {
+                System.out.println(" >>> Starting iteration for input data >>> " + iD.string());
+                open("https://www.top-pojisteni.cz/cestovni-pojisteni/kalkulace-a-srovnani");
 
-            new CookieHandler().acceptCookies();
-            new SearchPage().basicSearch(iD);
-            if (iD.isAddWinterSports()) new ResultPage().addWinterSports();
-            outputDatas.add(
-                    new ResultPage().parseData());
+                new CookieHandler().acceptCookies();
+                new SearchPage().basicSearch(iD);
+                if (iD.isAddWinterSports()) new ResultPage().addWinterSports();
+                outputDatas.add(
+                        new ResultPage().parseData());
 
-            Thread.sleep(30000);
-            closeWebDriver();
+                Thread.sleep(30000);
+                closeWebDriver();
+            }catch (Exception e){
+                e.printStackTrace();
+                closeWebDriver();
+            }
         }
         new ExcelWriter().writeToExcel(inputDatas, outputDatas);
     }

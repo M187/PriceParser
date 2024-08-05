@@ -25,7 +25,7 @@ public class SearchPage {
 		for (int i = 1; i < inputData.getTravelersAge().size() + 1; i++){
 			String age = inputData.getTravelersAge().get(i-1);
 			$("#traveller_" + i).setValue(age);
-			$("#traveller_" + (i+1)).should(Condition.visible, Duration.ofSeconds(5)).click();
+			$("#traveller_" + (i+1)).should(Condition.visible, Duration.ofSeconds(30)).scrollIntoView(true).click();
 		}
 
 		Calendar calndr2 = Calendar.getInstance();
@@ -36,7 +36,7 @@ public class SearchPage {
 		yearOfReturn.setValue(String.valueOf(calndr2.get(Calendar.YEAR)));
 
 //		a.get(a.size() - 2).click();
-		nextButton.scrollIntoView(false).should(Condition.enabled).click();
+		nextButton.scrollIntoView(true).should(Condition.enabled).click();
 		System.out.println(" ---- ");
 	}
 }
