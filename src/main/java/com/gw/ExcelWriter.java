@@ -10,6 +10,8 @@ import com.gw.v1.InputData;
 import com.gw.v1.ResultData;
 import com.gw.v2.InputDataV2;
 import com.gw.v2.ResultDataV2;
+import com.gw.v3.InputDataV3;
+import com.gw.v3.ResultDataV3;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -22,6 +24,90 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 @Slf4j
 public class ExcelWriter {
+
+	public void writeToExcelV3(List<InputDataV3> inputData, List<ResultDataV3> resultData) {
+		try {
+			File myObj = new File("policiesPriceComparison.xls");
+			FileOutputStream fileOutputStream = null;
+			try {
+				myObj.createNewFile();
+				fileOutputStream = new FileOutputStream(myObj);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			HSSFWorkbook workbook = new HSSFWorkbook();
+			HSSFSheet sheet = workbook.createSheet("PoliciesComparison" + new SimpleDateFormat("dd.MM.yyyy").format(new Date()));
+
+			//Style setting
+			HSSFFont headerFont = workbook.createFont();
+			headerFont.setBold(true);
+
+			HSSFCellStyle headerCellStyle = workbook.createCellStyle();
+			headerCellStyle.setFont(headerFont);
+
+			int rownum = 0;
+			for (int i = 0; i < inputData.size();i++) {
+				ResultDataV3 data = resultData.get(i);
+				InputDataV3 input = inputData.get(i);
+				sheet.addMergedRegion(new CellRangeAddress(rownum,rownum,0, data.getCompanyName().size()));
+				Row rowOverview = sheet.createRow(rownum++);
+				rowOverview.createCell(0).setCellValue(input.getQuoteParameters());
+				// create new row to count the results, place a number top of each result column
+				Row resultCounterRow = sheet.createRow(rownum++);
+				for (int j = 0; j < data.getCompanyName().toArray().length - 1; j++) {
+					Cell cell = resultCounterRow.createCell(j + 2);
+					cell.setCellValue(j+1 + ".");
+				}
+				// Full up the 2D matrix with data
+				Object[][] arrayOfEntries;
+				if(!Objects.equals(input.serviceLevel, "Alapszintű")) {
+					arrayOfEntries = new Object[][]{
+							data.getServiceLevel().toArray(),
+							data.getCompanyName().toArray(),
+							data.getProductName().toArray(),
+							data.getInsurancePremium().toArray(),
+							data.getCustomerReview().toArray(),
+							data.getNetriskReview().toArray(),
+							data.getCarAssistance().toArray(),
+							data.getMedexSumInsured().toArray(),
+							data.getLuggage().toArray(),
+							data.getGadget().toArray()
+					};
+				}
+				else{
+					arrayOfEntries = new Object[][]{
+							data.getServiceLevel().toArray(),
+							data.getCompanyName().toArray(),
+							data.getProductName().toArray(),
+							data.getInsurancePremium().toArray(),
+							data.getCustomerReview().toArray(),
+							data.getCarAssistance().toArray(),
+							data.getMedexSumInsured().toArray(),
+							data.getLuggage().toArray(),
+							data.getGadget().toArray()
+					};
+				}
+				// Create new row and fill every column cell with corresponding data from result
+				for (Object[] entry : arrayOfEntries) {
+					Row row = sheet.createRow(rownum++);
+					int colnum = 0;
+					for (Object value : entry) {
+						Cell cell = row.createCell(colnum++);
+						cell.setCellValue((String) value);
+						if(colnum == 1 || colnum == 2) {
+							cell.setCellStyle(headerCellStyle);
+						}
+					}
+				}
+				for (int n = 0; n < data.getCompanyName().size(); n++) sheet.autoSizeColumn(n);
+				rownum++;
+			}
+			workbook.write(fileOutputStream);
+			workbook.close();
+		} catch (IOException ie) {
+			ie.printStackTrace();
+		}
+	}
 
 	public void writeToExcelV2(List<InputDataV2> inputData, List<ResultDataV2> resultData) {
 		log.info(" -- writing data into excel");
