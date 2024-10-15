@@ -33,7 +33,7 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
         List<ResultDataV3> outputDatas = new ArrayList<>();
         List<InputDataV3> inputData = new ArrayList<>();
@@ -97,14 +97,10 @@ public class Main {
         Configuration.browser = "edge";
         Configuration.browserCapabilities = options;
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = true;
+        Configuration.headless = false;
 
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
-
-        List<String> processesPidList = null;
-        if (!Configuration.headless)
-            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
 
         try {
             int counter = 1;
@@ -120,28 +116,16 @@ public class Main {
 
                 getWebDriver().quit();
 
-                if (!Configuration.headless)
-                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                        if (!processesPidList.contains(pI)) {
-                            JProcesses.killProcess(Integer.parseInt(pI));
-                        }
-                    }
             }
             new ExcelWriter().writeToExcelV3(inputData, outputDatas);
         } catch (Exception e) {
-            if (!Configuration.headless)
-                for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                    if (!processesPidList.contains(pI)) {
-                        JProcesses.killProcess(Integer.parseInt(pI));
-                    }
-                }
             throw e;
         }
     }
 
     public static void mainV2(String[] args) throws Exception {
 
-        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
@@ -211,7 +195,7 @@ public class Main {
 
     public static void mainV1(String[] args) throws Exception {
 
-        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();
