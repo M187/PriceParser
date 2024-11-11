@@ -45,7 +45,7 @@ public class LandingPageV3 {
         switch (vehicle.name) {
             case "Autó":
                 Car car = (Car) vehicle;
-                $x("//div[@title='"+ car.name + "']").shouldBe(Condition.visible, Duration.ofSeconds(20)).click();
+                $x("//div[@title='"+ car.name + "']").shouldBe(Condition.visible, Duration.ofSeconds(60)).click();
 
                 $("#auto").should(Condition.exist).selectOption(car.quantity + 1);
                 $("#gyartasi_ev_1").shouldBe(Condition.visible).setValue("" + car.yearOfManufacture);
@@ -54,7 +54,7 @@ public class LandingPageV3 {
             case "Repülõ":
             case "Vonat / Busz":
             case "Egyéb":
-                $x("//div[@title='"+ vehicle.name + "']").shouldBe(Condition.visible, Duration.ofSeconds(20)).click();
+                $x("//div[@title='"+ vehicle.name + "']").shouldBe(Condition.visible, Duration.ofSeconds(60)).click();
                 btnVehicleSubmit.click();
                 break;
         }
