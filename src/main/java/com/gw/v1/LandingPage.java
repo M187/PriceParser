@@ -14,7 +14,8 @@ public class LandingPage {
 	private SelenideElement
 			destinaiton = $("#formparam_destination_input"),
 			travelerAge = $("#traveller_"),
-			nextButton = $x(".//button[contains(text(), 'Spočítat ceny')]"),
+//			nextButton = $x(".//button[contains(text(), 'Spočítat ceny')]"),
+			nextButton = $x(".//button[@name='formparam_data_next']"),
 			dayOfReturn = $("#field_date_return_day"),
 			monthOfReturn = $("#field_date_return_month"),
 			yearOfReturn = $("#field_date_return_year");

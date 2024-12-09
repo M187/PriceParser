@@ -79,7 +79,7 @@ public class ResultPage {
     public void addWinterSports() {
         $x(".//div[@id='slider[data_sport][winter]']").click();
         log.info(" >>> trying to recalculate results");
-        $("#recalculate-modal-button-recalculate").should(Condition.visible, Duration.ofSeconds(10)).click();
+        $("#recalculate_button").should(Condition.visible, Duration.ofSeconds(10)).click();
         $x(".//input[@type='submit']").should(Condition.enabled, Duration.ofSeconds(25));
     }
 }

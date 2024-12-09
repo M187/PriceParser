@@ -30,7 +30,7 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void mainV3(String[] args) throws Exception {
 
 //        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -192,7 +192,7 @@ public class Main {
         }
     }
 
-    public static void mainV1(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
 //        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -212,9 +212,9 @@ public class Main {
         EdgeOptions options = new EdgeOptions().addArguments("--remote-allow-origins=*");
         Configuration.browserCapabilities = options;
 
-        List<String> processesPidList = null;
-        if (!Configuration.headless)
-            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
+//        List<String> processesPidList = null;
+//        if (!Configuration.headless)
+//            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
 
         for (InputData iD : inputDatas) {
             try {
@@ -229,20 +229,20 @@ public class Main {
 
 //                Thread.sleep(10000);
                 closeWebDriver();
-                if (!Configuration.headless)
-                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                        if (!processesPidList.contains(pI)) {
-                            JProcesses.killProcess(Integer.parseInt(pI));
-                        }
-                    }
+//                if (!Configuration.headless)
+//                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+//                        if (!processesPidList.contains(pI)) {
+//                            JProcesses.killProcess(Integer.parseInt(pI));
+//                        }
+//                    }
             }catch (Exception e){
                 closeWebDriver();
-                if (!Configuration.headless)
-                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                        if (!processesPidList.contains(pI)) {
-                            JProcesses.killProcess(Integer.parseInt(pI));
-                        }
-                    }
+//                if (!Configuration.headless)
+//                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+//                        if (!processesPidList.contains(pI)) {
+//                            JProcesses.killProcess(Integer.parseInt(pI));
+//                        }
+//                    }
                 throw e;
             }
         }

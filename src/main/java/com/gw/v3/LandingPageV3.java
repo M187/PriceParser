@@ -62,7 +62,7 @@ public class LandingPageV3 {
 
     private void selectDestinationCountry(String destinationCountry) {
         $("#select2-celorszag_alap-container").shouldBe(Condition.visible, Duration.ofSeconds(10));
-        $("#celorszag_alap").selectOption(destinationCountry);
+        $("#celorszag_alap").shouldBe(Condition.visible, Duration.ofSeconds(10)).selectOption(destinationCountry);
         $x("//input[@value='Tovább']").click();
     }
 
