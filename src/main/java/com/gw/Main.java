@@ -122,7 +122,7 @@ public class Main {
         }
     }
 
-    public static void mainV2(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
 //        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
@@ -139,7 +139,7 @@ public class Main {
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
         inputData.add(new InputDataV2("Europa", "Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"05-04-1982", "05-04-1982"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "Narty, snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+        inputData.add(new InputDataV2("Europa", "Włochy", "Narty,", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
         inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12-12-1954", "13-11-1955"}));
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
@@ -155,7 +155,7 @@ public class Main {
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
 
         List<String> processesPidList = null;
-        if (!Configuration.headless)
+        if (Configuration.headless)
             processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
 
         try {
@@ -173,7 +173,7 @@ public class Main {
 
                 getWebDriver().quit();
 
-                if (!Configuration.headless)
+                if (Configuration.headless)
                     for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
                         if (!processesPidList.contains(pI)) {
                             JProcesses.killProcess(Integer.parseInt(pI));
@@ -182,7 +182,7 @@ public class Main {
             }
             new ExcelWriter().writeToExcelV2(inputData, outputDatas);
         } catch (Exception e) {
-            if (!Configuration.headless)
+            if (Configuration.headless)
                 for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
                     if (!processesPidList.contains(pI)) {
                         JProcesses.killProcess(Integer.parseInt(pI));
@@ -192,7 +192,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void mainV1(String[] args) throws Exception {
 
 //        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
 
