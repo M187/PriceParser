@@ -18,6 +18,8 @@ import com.gw.v3.vehicles.Vehicle;
 import org.jutils.jprocesses.JProcesses;
 import org.jutils.jprocesses.model.ProcessInfo;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,12 +29,13 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
+import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
 
 public class Main {
 
-    public static void mainV3(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
-//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultDataV3> outputDatas = new ArrayList<>();
         List<InputDataV3> inputData = new ArrayList<>();
@@ -54,6 +57,11 @@ public class Main {
         inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 15, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Exkluzív", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Exkluzív", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Vehicle("Vonat / Busz"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Car("Autó", 1, 2015), 6, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Vehicle("Vonat / Busz"), 6, 3, new int[]{34, 34, 8}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Car("Autó", 1, 2015), 3, 3, new int[]{34, 34, 8}));
         //service level: optimal
         inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Olaszország", new Vehicle("Vonat / Busz"), 7, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Optimális", "Sport", "Ausztria", new Vehicle("Egyéb"), 3, 1, new int[] {34}));
@@ -72,6 +80,9 @@ public class Main {
         inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 15, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Optimális", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Optimális", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Vehicle("Vonat / Busz"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 6, 2, new int[]{34, 34}));
         //service level: basic
         inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Olaszország", new Vehicle("Vonat / Busz"), 7, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Alapszintű", "Sport", "Ausztria", new Vehicle("Egyéb"), 3, 1, new int[] {34}));
@@ -91,12 +102,11 @@ public class Main {
         inputData.add(new InputDataV3("Alapszintű", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
         inputData.add(new InputDataV3("Alapszintű", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
 
-        EdgeOptions options = new EdgeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        Configuration.browser = "edge";
+        FirefoxOptions options = new FirefoxOptions();
+        Configuration.browser = "firefox";
         Configuration.browserCapabilities = options;
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = false;
+        Configuration.headless = true;
 
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
@@ -122,9 +132,9 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void mainV2(String[] args) throws Exception {
 
-//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
@@ -194,7 +204,7 @@ public class Main {
 
     public static void mainV1(String[] args) throws Exception {
 
-//        System.setProperty(FirefoxDriver.SystemProperty.BROWSER_LOGFILE, "/dev/null");
+        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @Builder
 @Getter
@@ -26,15 +28,17 @@ public class InputDataV3 {
 
     public int[] datesOfBirth;
 
-    public String getQuoteParameters(){
-        StringBuilder rawData = new StringBuilder()
-                .append(" -- Service level: " + serviceLevel)
-                .append(" -- Purpose of trip: " + tripPurpose)
-                .append(" -- Destination: " + destinationCountry)
-                .append(" -- Travel mode / vehicle: " + vehicle.name)
-                .append(" -- Duration in days: " + tripDuration)
-                .append(" -- Travelers no.: " + noOfTravelers)
-                .append(String.format(" -- travelers age:" + Arrays.toString(datesOfBirth), ","));
-        return rawData.toString();
+    public Map<String, String> getQuoteParameters() {
+        Map<String, String> quoteParameters = new HashMap<>();
+
+        quoteParameters.put("service level", serviceLevel);
+        quoteParameters.put("Purpose of trip", tripPurpose);
+        quoteParameters.put("destination", destinationCountry);
+        quoteParameters.put("Travel mode / vehicle", vehicle.name);
+        quoteParameters.put("Duration in days", Integer.toString(tripDuration));
+        quoteParameters.put("Number of travelers", Integer.toString(noOfTravelers));
+        quoteParameters.put("Travelers' age", Arrays.toString(datesOfBirth));
+
+        return quoteParameters;
     }
 }

@@ -83,13 +83,16 @@ public class LandingPageV3 {
                 $x("//div[contains(@title, 'Sport')]").click();
                 break;
 
+            case "Síelés és snowboard":
+                $x("//div[contains(@title, 'Síelés és snowboard')]").click();
+                break;
         }
 
     }
 
     private void setBirthDayOfTravelers(int[] datesOfBirth) {
-
-        for (int i = 0; i < datesOfBirth.length; i++) {
+        int numOfTravelers = datesOfBirth.length;
+        for (int i = 0; i < numOfTravelers; i++) {
             travelersBirthdateInputs.get(i).click();
             travelersBirthdateInputs.get(i) .setValue(calculateBirthdate(datesOfBirth[i]));
             }

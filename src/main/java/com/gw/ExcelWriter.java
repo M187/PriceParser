@@ -44,24 +44,23 @@ public class ExcelWriter {
 
 			HSSFCellStyle headerCellStyle = workbook.createCellStyle();
 			headerCellStyle.setFont(headerFont);
-
-			int rownum = 0;
+			int extraHeadersSize = 2;
+			int rowNum = 0;
 			for (int i = 0; i < inputData.size();i++) {
 				ResultDataV3 data = resultData.get(i);
 				InputDataV3 input = inputData.get(i);
-				sheet.addMergedRegion(new CellRangeAddress(rownum,rownum,0, data.getCompanyName().size()));
-				Row rowOverview = sheet.createRow(rownum++);
-				rowOverview.createCell(0).setCellValue(input.getQuoteParameters());
-				// create new row to count the results, place a number top of each result column
-				Row resultCounterRow = sheet.createRow(rownum++);
+				Map<String, String> quoteParameters = input.getQuoteParameters();
+				sheet.addMergedRegion(new CellRangeAddress(rowNum,rowNum,0, data.getCompanyName().size() + extraHeadersSize));
+
+				Row resultCounterRow = sheet.createRow(rowNum++);
 				for (int j = 0; j < data.getCompanyName().toArray().length - 1; j++) {
 					Cell cell = resultCounterRow.createCell(j + 2);
 					cell.setCellValue(j+1 + ".");
 				}
-				// Full up the 2D matrix with data
-				Object[][] arrayOfEntries;
+				// Fill up the 2D matrix with data got from search results
+				Object[][] dataEntries;
 				if(!Objects.equals(input.serviceLevel, "Alapszintű")) {
-					arrayOfEntries = new Object[][]{
+					dataEntries = new Object[][]{
 							data.getServiceLevel().toArray(),
 							data.getCompanyName().toArray(),
 							data.getProductName().toArray(),
@@ -75,7 +74,7 @@ public class ExcelWriter {
 					};
 				}
 				else{
-					arrayOfEntries = new Object[][]{
+					dataEntries = new Object[][]{
 							data.getServiceLevel().toArray(),
 							data.getCompanyName().toArray(),
 							data.getProductName().toArray(),
@@ -87,20 +86,40 @@ public class ExcelWriter {
 							data.getGadget().toArray()
 					};
 				}
+				//Generate the description of the profile in the first two columns
+				for (Map.Entry<String, String> entry : quoteParameters.entrySet()) {
+					int colNum = 0;
+					Row row = sheet.createRow(rowNum++);
+					String key = entry.getKey();
+					String value = entry.getValue();
+					Cell startingCell = row.createCell(colNum++);
+					startingCell.setCellValue(key);
+					Cell secondCell = row.createCell(colNum++);
+					secondCell.setCellValue(value);
+
+				}
 				// Create new row and fill every column cell with corresponding data from result
-				for (Object[] entry : arrayOfEntries) {
-					Row row = sheet.createRow(rownum++);
-					int colnum = 0;
-					for (Object value : entry) {
-						Cell cell = row.createCell(colnum++);
-						cell.setCellValue((String) value);
-						if(colnum == 1 || colnum == 2) {
+				int rowIndex = rowNum -quoteParameters.size();
+				for (Object[] entry : dataEntries) {
+					int colNum = 2;
+
+					for (int y = 0; y < entry.length; y++) {
+						Row row = sheet.getRow(rowIndex);
+						if (row == null) {
+							row = sheet.createRow(rowIndex);
+						}
+						Cell cell = row.createCell(colNum++);
+						cell.setCellValue((String) entry[y]);
+						if(colNum == 3) {
 							cell.setCellStyle(headerCellStyle);
+						}
+						if (y == entry.length - 1) {
+							rowIndex ++;
 						}
 					}
 				}
-				for (int n = 0; n < data.getCompanyName().size(); n++) sheet.autoSizeColumn(n);
-				rownum++;
+				for (int n = 0; n < data.getCompanyName().size() + extraHeadersSize; n++) sheet.autoSizeColumn(n);
+				rowNum++;
 			}
 			workbook.write(fileOutputStream);
 			workbook.close();

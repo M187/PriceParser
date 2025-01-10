@@ -155,7 +155,9 @@ public class ResultPageV3 {
         resultNames.add("Biztosító");
         for (SelenideElement item : listItems) {
             String companyName = item.$x(".//div[@class='biztosito-neve biztosito-kepes-ikon']").$x(".//img").getAttribute("alt");
-            resultNames.add(companyName);
+            assert companyName != null;
+            String cleanedName = companyName.replace("<br/>", "");
+            resultNames.add(cleanedName);
         }
         return resultNames;
     }
