@@ -16,6 +16,7 @@ public class ResultPageV2 {
     private SelenideElement loadingDialog = $x("//div[@class='rank-modal-dialog']");
     private SelenideElement insuranceList = $x("//offers-list");
     private ElementsCollection insuranceCompanyNames = insuranceList.$$x(".//div[contains(@class, 'logo__image')]");
+    private ElementsCollection productNames = insuranceList.$$x(".//span[@class='item-default']/span/span[1]");
 
     public ResultDataV2 parseData() throws InterruptedException {Thread.sleep(2000);
         resultTableWaitToBeLoaded();
@@ -23,13 +24,16 @@ public class ResultPageV2 {
         ElementsCollection medexSumInsured = insuranceList.$$x(".//div[contains(@class, 'offer-bar__details--params')]/div[1]");
         ElementsCollection oc = insuranceList.$$x(".//div[contains(@class, 'offer-bar__details--params')]/div[2]");
         ElementsCollection ratings = insuranceList.$$x(".//div[@class='offer-bar__rating']//offer-rating/div/div[3]");
+        ElementsCollection additionalCoverages = insuranceList.$$x(".//div[contains(@class, 'offer-bar__list')]/ul");
 
         ResultDataV2 result = new ResultDataV2();
         result.getCompanyName().addAll(parseCompanyName(insuranceCompanyNames));
+        result.getProductName().addAll(parseProductName(productNames));
         result.getInsurancePremium().addAll(parsePremiums(premium));
         result.getMedexSumInsured().addAll(parseCoverages(medexSumInsured));
         result.getOc().addAll(parseCoverages(oc));
         result.getRate().addAll(parseRatings(ratings));
+        result.getOtherCoverage().addAll(parseOtherCoverages(additionalCoverages));
         return result;
     }
 
@@ -43,7 +47,8 @@ public class ResultPageV2 {
         insuranceCompanyNames.get(0).shouldBe(Condition.visible,  Duration.ofSeconds(60));
     }
 
-    private List<String> parseCompanyName(ElementsCollection elements) {
+    private List<String> parseCompanyName(ElementsCollection elements) throws InterruptedException {
+        Thread.sleep(3000);
         List resultNames = new ArrayList();
         for (SelenideElement element : elements) {
             String path = element.$x(".//img").getAttribute("src");
@@ -51,6 +56,15 @@ public class ResultPageV2 {
             resultNames.add(path.substring(index + 1).split("\\.")[0]);
         }
         return resultNames;
+    }
+
+    private List<String> parseProductName(ElementsCollection elements) {
+        List productNames = new ArrayList();
+        for (SelenideElement element : elements) {
+            String name = element.innerText();
+            productNames.add(name);
+        }
+        return productNames;
     }
 
     private List<String> parsePremiums(ElementsCollection spanNodes) {
@@ -80,5 +94,19 @@ public class ResultPageV2 {
             resultRates.add(resultRate);
         }
         return resultRates;
+    }
+
+    private List<String> parseOtherCoverages(ElementsCollection divs) {
+        List<String> results = new ArrayList<>();
+        for (SelenideElement div : divs) {
+            ElementsCollection otherCoverages = div.$$x("./li");
+            StringBuilder coverages = new StringBuilder();
+            for (SelenideElement coverage : otherCoverages) {
+                String result = coverage.getText().replaceAll("&nbsp;", " ").trim() + "; ";
+                coverages.append(result);
+            }
+            results.add(coverages.toString());
+        }
+        return results;
     }
 }

@@ -13,16 +13,12 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class LandingPageV2 {
 
-    private Calendar calndr = Calendar.getInstance();
-
     private SelenideElement
             continent,
             countryOption,
             tripPurpose,
             pageHeader = $("#rank-header"),
             countryDropdown = $x("//div[@id='destinationCountries']//rank-select"),
-            travelTimePicker = $x("//section[@id='travelTime']//rank-date-picker"),
-            btnNextMonth = $x("//div[contains(@class,'next-month')]//button"),
             numOfTravelersInput = $x("//div[@id='travelersCount']//input"),
             btnTermsAndCondition = $("#termsOfUseAllowance_checkbox"),
             btnShowMoreOffers = $("#buttonShowOffers");
@@ -40,7 +36,7 @@ public class LandingPageV2 {
 
     public void populateOfferFormWithData(InputDataV2 data) throws Exception {
         String currentDay = getCurrentDay();
-        String tripEndDate = getTripEndDate(data.tripDuration);
+        String tripEndDate = getTripEndDate(data.tripDuration - 1);
 
 //        waitUntilBrowserFullyLoads();
         continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
@@ -59,7 +55,7 @@ public class LandingPageV2 {
     }
 
     private void setCountry() {
-        countryDropdown.click();
+        countryDropdown.shouldBe(Condition.visible).click();
         countryOption.scrollIntoView(false);
         countryOption.click();
         pageHeader.click();

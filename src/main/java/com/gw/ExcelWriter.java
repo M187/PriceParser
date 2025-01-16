@@ -53,7 +53,7 @@ public class ExcelWriter {
 				greenCellStyle.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
 
 
-			String[] columns = {"Ubezpieczyciel", "Cena polisy", "Koszty leczenia", "OC", "Ocena experta"};
+			String[] columns = {"Ubezpieczyciel", "Produkt", "Cena polisy", "Koszty leczenia", "OC", "Ocena experta", "Inne zakresy"};
 			int rowNum = 0;
 			for (int i = 0; i < inputData.size(); i++) {
 				ResultDataV2 data = resultData.get(i);
@@ -81,28 +81,46 @@ public class ExcelWriter {
 					String companyName = data.getCompanyName().get(k);
 
 					Cell cell1 = row.createCell(0);
-						cell1.setCellValue(companyName);
-						setBoldIfColonnade(cell1, companyName, greenCellStyle);
+					cell1.setCellValue(companyName);
+					setBoldIfColonnade(cell1, companyName, greenCellStyle);
+					sheet.autoSizeColumn(0);
 
 					Cell cell2 = row.createCell(1);
-						cell2.setCellValue(
-								k < data.getInsurancePremium().size() ? data.getInsurancePremium().get(k) : "missing on page");
-						setBoldIfColonnade(cell2, companyName, greenCellStyle);
+					cell2.setCellValue(
+							k < data.getProductName().size() ? data.getProductName().get(k) : "missing on page");
+					setBoldIfColonnade(cell2, companyName, greenCellStyle);
+					sheet.autoSizeColumn(1);
 
 					Cell cell3 = row.createCell(2);
-						cell3.setCellValue(
-								k < data.getMedexSumInsured().size() ? data.getMedexSumInsured().get(k) : "missing on page");
-						setBoldIfColonnade(cell3, companyName, greenCellStyle);
+					cell3.setCellValue(
+								k < data.getInsurancePremium().size() ? data.getInsurancePremium().get(k) : "missing on page");
+					setBoldIfColonnade(cell3, companyName, greenCellStyle);
+					sheet.autoSizeColumn(2);
 
 					Cell cell4 = row.createCell(3);
-						cell4.setCellValue(
-								k < data.getOc().size() ? data.getOc().get(k) : "missing on page");
-						setBoldIfColonnade(cell4, companyName, greenCellStyle);
+					cell4.setCellValue(
+								k < data.getMedexSumInsured().size() ? data.getMedexSumInsured().get(k) : "missing on page");
+					setBoldIfColonnade(cell4, companyName, greenCellStyle);
+					sheet.autoSizeColumn(3);
 
 					Cell cell5 = row.createCell(4);
-						cell5.setCellValue(
+					cell5.setCellValue(
+								k < data.getOc().size() ? data.getOc().get(k) : "missing on page");
+					setBoldIfColonnade(cell5, companyName, greenCellStyle);
+					sheet.autoSizeColumn(4);
+
+					Cell cell6 = row.createCell(5);
+					cell6.setCellValue(
 								k < data.getRate().size() ? data.getRate().get(k) : "missing on page");
-						setBoldIfColonnade(cell5, companyName, greenCellStyle);
+					setBoldIfColonnade(cell6, companyName, greenCellStyle);
+					sheet.autoSizeColumn(5);
+
+
+					Cell cell7 = row.createCell(6);
+						cell7.setCellValue(
+								k < data.getOtherCoverage().size() ? data.getOtherCoverage().get(k) : "missing on page");
+						setBoldIfColonnade(cell7, companyName, greenCellStyle);
+						sheet.autoSizeColumn(6);
 
 				}
 				sheet.createRow(rowNum++);
