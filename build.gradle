@@ -1,6 +1,6 @@
 plugins {
     //use  - gradlew shadowJar to generate jar with dependencies
-    id 'com.github.johnrengelman.shadow' version '6.1.0'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'java'
 }
 
@@ -9,6 +9,12 @@ compileTestJava.options.encoding = 'UTF-8'
 
 group 'org.example'
 version '1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 compileJava {
     sourceCompatibility = 1.8

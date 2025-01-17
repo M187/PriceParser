@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
+//import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
+       // System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
@@ -98,7 +98,7 @@ public class Main {
 
     public static void mainV1(String[] args) throws Exception {
 
-        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
+        //System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();
