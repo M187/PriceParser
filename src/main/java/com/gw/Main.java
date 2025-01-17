@@ -43,7 +43,7 @@ public class Main {
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
         inputData.add(new InputDataV2("Europa", "Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"05-04-1982", "05-04-1982"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "Narty, snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+        inputData.add(new InputDataV2("Europa", "Włochy", "snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
         inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12-12-1954", "13-11-1955"}));
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
         inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
@@ -53,7 +53,7 @@ public class Main {
         Configuration.browser = "edge";
         Configuration.browserCapabilities = options;
         Configuration.browserSize = "1920x1080";
-        Configuration.headless = true;
+        Configuration.headless = false;
 
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
