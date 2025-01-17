@@ -17,8 +17,8 @@ java {
 }
 
 compileJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
@@ -33,10 +33,10 @@ repositories {
 
 
 dependencies {
-    implementation 'org.projectlombok:lombok:1.18.24'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    implementation 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
 
-    implementation 'com.codeborne:selenide:6.6.6'
+    implementation 'com.codeborne:selenide:7.5.1'
     implementation 'org.apache.poi:poi:3.11'
     implementation 'org.jprocesses:jProcesses:1.6.4'
 }

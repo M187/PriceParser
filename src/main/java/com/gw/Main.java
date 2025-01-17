@@ -28,8 +28,6 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-       // System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
-
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
@@ -97,8 +95,6 @@ public class Main {
     }
 
     public static void mainV1(String[] args) throws Exception {
-
-        //System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultData> outputDatas = new ArrayList<>();
         List<InputData> inputDatas = new ArrayList<>();
