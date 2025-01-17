@@ -22,10 +22,5 @@ public class ResultDataV3 {
 	private List<String> gadget = new ArrayList<>();
 
 	public ResultDataV3(){
-//		this.companyName.add("Poistovna");
-//		this.insurancePremium.add("Cena poistenia");
-//		this.liecebneVylohy.add("Liecebne bylohy");
-//		this.urazovePojisteni.add("Urazove poistenie");
-//		this.pojistOdpovednosti.add("Pojisteni Odpovednosti");
 	}
 }

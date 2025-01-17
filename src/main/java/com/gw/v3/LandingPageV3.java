@@ -15,8 +15,6 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class LandingPageV3 {
 
-    private Calendar calndr = Calendar.getInstance();
-
     private SelenideElement
 
             numOfTravelersSelect = $("#utasok_szama"),

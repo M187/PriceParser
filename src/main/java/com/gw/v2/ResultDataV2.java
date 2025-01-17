@@ -19,10 +19,5 @@ public class ResultDataV2 {
 	private List<String> otherCoverage = new ArrayList<>();
 
 	public ResultDataV2(){
-//		this.companyName.add("Poistovna");
-//		this.insurancePremium.add("Cena poistenia");
-//		this.liecebneVylohy.add("Liecebne bylohy");
-//		this.urazovePojisteni.add("Urazove poistenie");
-//		this.pojistOdpovednosti.add("Pojisteni Odpovednosti");
 	}
 }

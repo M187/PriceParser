@@ -9,10 +9,16 @@ import com.gw.v2.InputDataV2;
 import com.gw.v2.LandingPageV2;
 import com.gw.v2.ResultDataV2;
 import com.gw.v2.ResultPageV2;
+import com.gw.v3.InputDataV3;
+import com.gw.v3.LandingPageV3;
+import com.gw.v3.ResultDataV3;
+import com.gw.v3.ResultPageV3;
+import com.gw.v3.vehicles.Car;
+import com.gw.v3.vehicles.Vehicle;
 import org.jutils.jprocesses.JProcesses;
 import org.jutils.jprocesses.model.ProcessInfo;
 import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +28,110 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-//import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
+import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
+
+        List<ResultDataV3> outputDatas = new ArrayList<>();
+        List<InputDataV3> inputData = new ArrayList<>();
+        //service level: exclusive
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Olaszország", new Vehicle("Vonat / Busz"), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Sport", "Ausztria", new Vehicle("Egyéb"), 3, 1, new int[] {34}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Olaszország", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Olaszország", new Car("Autó", 1, 2015), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Exkluzív", "Városnézés", "Spanyolország", new Vehicle("Repülõ"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Általános", "Ausztria", new Car("Autó", 1, 2009), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 15, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Vehicle("Vonat / Busz"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Car("Autó", 1, 2015), 6, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Vehicle("Vonat / Busz"), 6, 3, new int[]{34, 34, 8}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Szlovákia", new Car("Autó", 1, 2015), 3, 3, new int[]{34, 34, 8}));
+        //service level: optimal
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Olaszország", new Vehicle("Vonat / Busz"), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Sport", "Ausztria", new Vehicle("Egyéb"), 3, 1, new int[] {34}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Olaszország", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Olaszország", new Car("Autó", 1, 2015), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Optimális", "Városnézés", "Spanyolország", new Vehicle("Repülõ"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Általános", "Ausztria", new Car("Autó", 1, 2009), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Optimális", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 15, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Optimális", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Vehicle("Vonat / Busz"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Exkluzív", "Síelés és snowboard", "Olaszország", new Car("Autó", 1, 2015), 6, 2, new int[]{34, 34}));
+        //service level: basic
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Olaszország", new Vehicle("Vonat / Busz"), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Sport", "Ausztria", new Vehicle("Egyéb"), 3, 1, new int[] {34}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Olaszország", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Olaszország", new Car("Autó", 1, 2015), 7, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 7, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Car("Autó", 1, 2015), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Vehicle("Repülõ"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Horvátország", new Vehicle("Vonat / Busz"), 8, 4, new int[]{34, 34, 5, 10}));
+        inputData.add(new InputDataV3("Alapszintű", "Városnézés", "Spanyolország", new Vehicle("Repülõ"), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Általános", "Ausztria", new Car("Autó", 1, 2009), 5, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 8, 3, new int[]{34, 34, 5}));
+        inputData.add(new InputDataV3("Alapszintű", "Tengerparti nyaralás", "Thaiföld", new Vehicle("Repülõ"), 15, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 2, new int[]{34, 34}));
+        inputData.add(new InputDataV3("Alapszintű", "Általános", "Amerikai Egyesült Államok", new Vehicle("Repülõ"), 16, 3, new int[]{34, 34, 5}));
+
+        FirefoxOptions options = new FirefoxOptions();
+        Configuration.browser = "firefox";
+        Configuration.browserCapabilities = options;
+        Configuration.browserSize = "1920x1080";
+        Configuration.headless = true;
+
+        System.out.println("Headless method: " + Configuration.headless);
+        System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
+
+        try {
+            int counter = 1;
+            for (InputDataV3 data : inputData) {
+                System.out.println(" -- Round: " + counter);
+                counter++;
+
+                open("https://www.netrisk.hu/biztositas_dijszamitas/utasbiztositas/utasbiztositas.php");
+                new LandingPageV3().populateOfferFormWithData(data);
+
+                outputDatas.add(
+                        new ResultPageV3(data).parseData());
+
+                getWebDriver().quit();
+
+            }
+            new ExcelWriter().writeToExcelV3(inputData, outputDatas);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public static void mainV2(String[] args) throws Exception {
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();

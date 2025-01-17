@@ -38,7 +38,7 @@ public class LandingPageV2 {
         String currentDay = getCurrentDay();
         String tripEndDate = getTripEndDate(data.tripDuration - 1);
 
-//        waitUntilBrowserFullyLoads();
+
         continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
         setCountry();
         tripPurpose.click();
