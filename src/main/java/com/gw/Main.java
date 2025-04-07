@@ -28,13 +28,11 @@ import java.util.stream.Collectors;
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.openqa.selenium.firefox.GeckoDriverService.GECKO_DRIVER_LOG_PROPERTY;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main1(String[] args) throws Exception {
 
-        System.setProperty(GECKO_DRIVER_LOG_PROPERTY, "/dev/null");
 
         List<ResultDataV3> outputDatas = new ArrayList<>();
         List<InputDataV3> inputData = new ArrayList<>();
@@ -131,7 +129,7 @@ public class Main {
         }
     }
 
-    public static void mainV2(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
@@ -161,9 +159,9 @@ public class Main {
         System.out.println("Headless method: " + Configuration.headless);
         System.out.println("Browser Capabilities: " + Configuration.browserCapabilities.toString());
 
-        List<String> processesPidList = null;
-        if (!Configuration.headless)
-            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
+//        List<String> processesPidList = null;
+//        if (!Configuration.headless)
+//            processesPidList = JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList());
 
         try {
             int counter = 1;
@@ -180,21 +178,22 @@ public class Main {
 
                 getWebDriver().quit();
 
-                if (!Configuration.headless)
-                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                        if (!processesPidList.contains(pI)) {
-                            JProcesses.killProcess(Integer.parseInt(pI));
-                        }
-                    }
+//                if (!Configuration.headless)
+//                    for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+//                        if (!processesPidList.contains(pI)) {
+//                            JProcesses.killProcess(Integer.parseInt(pI));
+//                        }
+//                    }
             }
             new ExcelWriter().writeToExcelV2(inputData, outputDatas);
         } catch (Exception e) {
+            getWebDriver().quit();
             if (!Configuration.headless)
-                for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
-                    if (!processesPidList.contains(pI)) {
-                        JProcesses.killProcess(Integer.parseInt(pI));
-                    }
-                }
+//                for (String pI : JProcesses.getProcessList("msedge.exe").stream().map(ProcessInfo::getPid).collect(Collectors.toList())) {
+//                    if (!processesPidList.contains(pI)) {
+//                        JProcesses.killProcess(Integer.parseInt(pI));
+//                    }
+//                }
             throw e;
         }
     }

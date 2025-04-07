@@ -42,7 +42,7 @@ public class LandingPageV2 {
         continent.shouldBe(Condition.visible, Duration.ofSeconds(30)).click();
         setCountry();
         tripPurpose.click();
-        setTripDate(currentDay, tripEndDate);
+        setTripDate(data.tripDuration);
         setNumOfTravelers(data.noOfTravelers);
         if(data.allTravelersFromPoland) {
             btnsTravelersLivingInResidence.get(0).click();
@@ -86,12 +86,18 @@ public class LandingPageV2 {
         $x("//div[@id='travelersCount']//div[text()='"+numOfTravelers+"']").shouldBe(Condition.visible).click();
     }
 
-    private void setTripDate(String currentDate, String tripEndDate) {
+    private void setTripDate(int duration) {
+        $("#travelTime_from").click();
+        $("#rankDatePickerAnnouncer").should(Condition.visible);
         //Make input fields editable
-        executeJavaScript("document.querySelector(arguments[0]).removeAttribute('readonly');", "div.rank-question-area > rank-date-picker > div > div > input:nth-child(1)");
-        executeJavaScript("document.querySelector(arguments[0]).removeAttribute('readonly');", "div.rank-question-area > rank-date-picker > div > div > input:nth-child(2)");
-        $$x("//div[@class='rank-input-range rank-input-control']//input").get(0).setValue(currentDate);
-        $$x("//div[@class='rank-input-range rank-input-control']//input").get(1).setValue(tripEndDate);
+        Calendar cal = Calendar.getInstance();
+        int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH) + 1;
+        $("#rankDatePickerAnnouncer").$$x("..//span[text()='" + dayOfMonth + "']").get(0).click();
+        $("#rankDatePickerAnnouncer").$$x("..//span[text()='" +
+                        (dayOfMonth + duration <= cal.getActualMaximum(Calendar.DAY_OF_MONTH) ? dayOfMonth + duration : dayOfMonth + duration - cal.getActualMaximum(Calendar.DAY_OF_MONTH)) + "']")
+                .get(
+                        dayOfMonth + duration <= cal.getActualMaximum(Calendar.DAY_OF_MONTH) ? 0 : 1
+                ).click();
     }
 
     private String getTripEndDate(int tripLength) {
