@@ -30,21 +30,21 @@ public class Main {
 
         List<ResultDataV2> outputDatas = new ArrayList<>();
         List<InputDataV2> inputData = new ArrayList<>();
-        inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
-        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
+//        inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
+//        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"01-01-1990", "01-01-1990"}));
+//        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
         inputData.add(new InputDataV2("Azja", "Turcja", "Wypoczynek, zwiedzanie", 8, "4", true, new String[]{"18-09-1984", "25-11-1992", "12-11-2019", "05-06-2015"}));
-        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 14, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
-        inputData.add(new InputDataV2("Azja", "Turcja", "Wypoczynek, zwiedzanie", 14, "4", true, new String[]{"18-09-1984", "25-11-1992", "12-11-2019", "05-06-2015"}));
-        inputData.add(new InputDataV2("Ameryka Południowa", "Brazylia", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
-        inputData.add(new InputDataV2("Ameryka Północna", "Stany Zjednoczone", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"30-10-1986", "12-12-1987"}));
+//        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 14, "3", true, new String[]{"12-06-1985", "13-08-1991", "12-05-2020"}));
+//        inputData.add(new InputDataV2("Azja", "Turcja", "Wypoczynek, zwiedzanie", 14, "4", true, new String[]{"18-09-1984", "25-11-1992", "12-11-2019", "05-06-2015"}));
+//        inputData.add(new InputDataV2("Ameryka Południowa", "Brazylia", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+//        inputData.add(new InputDataV2("Ameryka Północna", "Stany Zjednoczone", "Wypoczynek, zwiedzanie", 14, "2", true, new String[]{"30-10-1986", "12-12-1987"}));
         inputData.add(new InputDataV2("Europa", "Chorwacja", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
-        inputData.add(new InputDataV2("Europa", "Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
-        inputData.add(new InputDataV2("Europa", "Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"05-04-1982", "05-04-1982"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
-        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12-12-1954", "13-11-1955"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
-        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
+//        inputData.add(new InputDataV2("Europa", "Chorwacja", "Sporty ekstremalne", 8, "2", true, new String[]{"01-01-1990", "01-02-1987"}));
+//        inputData.add(new InputDataV2("Europa", "Niemcy", "Praca fizyczna", 8, "2", true, new String[]{"05-04-1982", "05-04-1982"}));
+//        inputData.add(new InputDataV2("Europa", "Włochy", "snowboard", 8, "2", true, new String[]{"10-02-1985", "13-03-1990"}));
+//        inputData.add(new InputDataV2("Afryka", "Egipt", "Wypoczynek, zwiedzanie", 8, "2", true, new String[]{"12-12-1954", "13-11-1955"}));
+//        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "6", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998"}));
+//        inputData.add(new InputDataV2("Europa", "Włochy", "Wypoczynek, zwiedzanie", 8, "10", true, new String[]{"10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994", "18-07-1978", "14-05-1998", "10-10-1995", "12-05-1987", "25-12-1990", "30-09-1994"}));
 
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--remote-allow-origins=*");

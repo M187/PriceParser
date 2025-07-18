@@ -15,8 +15,10 @@ public class ResultPageV2 {
     private SelenideElement spinner = $x(".//div[contains(@class,'rank-spinner')]");
     private SelenideElement loadingDialog = $x("//div[@class='rank-modal-dialog']");
     private SelenideElement insuranceList = $x("//offers-list");
-    private ElementsCollection insuranceCompanyNames = insuranceList.$$x(".//div[contains(@class, 'logo__image')]");
-    private ElementsCollection productNames = insuranceList.$$x(".//span[@class='item-default']/span/span[1]");
+    private ElementsCollection
+            insuranceCompanyNames = insuranceList.$$x(".//div[contains(@class, 'logo__image')]"),
+            productNames = insuranceList.$$x(".//span[@class='item-default']/span/span[1]"),
+            offers = $$("li.offers-list__animate--opacity");
 
     public ResultDataV2 parseData() throws InterruptedException {Thread.sleep(2000);
         resultTableWaitToBeLoaded();
@@ -48,7 +50,8 @@ public class ResultPageV2 {
     }
 
     private List<String> parseCompanyName(ElementsCollection elements) throws InterruptedException {
-        Thread.sleep(3000);
+        waitUntilStableOfferList();
+        Thread.sleep(2000);
         List resultNames = new ArrayList();
         for (SelenideElement element : elements) {
             String path = element.$x(".//img").getAttribute("src");
@@ -56,6 +59,23 @@ public class ResultPageV2 {
             resultNames.add(path.substring(index + 1).split("\\.")[0]);
         }
         return resultNames;
+    }
+
+    private void waitUntilStableOfferList() {
+        int stableCount = 0;
+        int previousSize = -1;
+
+        for (int i = 0; i < 20; i++) {
+            int currentSize = offers.size();
+            if (currentSize == previousSize) {
+                stableCount++;
+                if (stableCount >= 8) break;
+            } else {
+                stableCount = 0;
+                previousSize = currentSize;
+            }
+            sleep(500);
+        }
     }
 
     private List<String> parseProductName(ElementsCollection elements) {

@@ -18,14 +18,19 @@ public class LandingPageV2 {
             countryOption,
             tripPurpose,
             pageHeader = $("#rank-header"),
-            countryDropdown = $x("//div[@id='destinationCountries']//rank-select"),
-            numOfTravelersInput = $x("//div[@id='travelersCount']//input"),
+            countryDropdown = $x("//fieldset[@id='destinationCountries']//rank-select"),
+            numOfTravelersInput = $x("//fieldset[@id='travelersCount']//input"),
             btnTermsAndCondition = $("#termsOfUseAllowance_checkbox"),
-            btnShowMoreOffers = $("#buttonShowOffers");
+            btnShowMoreOffers = $("#buttonShowOffers"),
+            setStartDateButton = $("#insStartDate");
+
+    private SelenideElement getDateButton(String date) {
+        return $x("//td[@data-value='" + date + "']/button");
+    }
 
 
     ElementsCollection
-            btnsTravelersLivingInResidence = $$x("//div[@id='travelersLivingInResidence']//input/parent::div"),
+            btnsTravelersLivingInResidence = $$x("//fieldset[@id='travelersLivingInResidence']//input/parent::li"),
             travelersBirthdate = $$x("//section[contains(@id, 'traveler')]//rank-date-picker");
 
     public LandingPageV2(InputDataV2 data) {
@@ -81,17 +86,16 @@ public class LandingPageV2 {
     }
 
     private void setNumOfTravelers(String numOfTravelers) {
-        $x("//div[@id='travelersCount']//rank-select").click();
+        $x("//fieldset[@id='travelersCount']//rank-select").click();
         numOfTravelersInput.setValue(numOfTravelers);
-        $x("//div[@id='travelersCount']//div[text()='"+numOfTravelers+"']").shouldBe(Condition.visible).click();
+        $x("//fieldset[@id='travelersCount']//div[text()='"+numOfTravelers+"']").shouldBe(Condition.visible).click();
     }
 
     private void setTripDate(String currentDate, String tripEndDate) {
         //Make input fields editable
-        executeJavaScript("document.querySelector(arguments[0]).removeAttribute('readonly');", "div.rank-question-area > rank-date-picker > div > div > input:nth-child(1)");
-        executeJavaScript("document.querySelector(arguments[0]).removeAttribute('readonly');", "div.rank-question-area > rank-date-picker > div > div > input:nth-child(2)");
-        $$x("//div[@class='rank-input-range rank-input-control']//input").get(0).setValue(currentDate);
-        $$x("//div[@class='rank-input-range rank-input-control']//input").get(1).setValue(tripEndDate);
+        setStartDateButton.shouldBe(Condition.visible).click();
+        getDateButton(currentDate).shouldBe(Condition.visible).click();
+        getDateButton(tripEndDate).click();
     }
 
     private String getTripEndDate(int tripLength) {
